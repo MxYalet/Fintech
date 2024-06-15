@@ -3,31 +3,34 @@ package com.example.fintech.ui.fragment.transfer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.fintech.data.repository.TransferRepository
-import kotlinx.coroutines.launch
 
-class TransferViewModel(private val transferRepository: TransferRepository) : ViewModel() {
+class TransferViewModel : ViewModel() {
 
-    private val _transferResult = MutableLiveData<Boolean>()
-    val transferResult: LiveData<Boolean> get() = _transferResult
+    private val _selectedBank = MutableLiveData<String>()
+    val selectedBank: LiveData<String> get() = _selectedBank
 
-    private val _transferError = MutableLiveData<String?>()
-    val transferError: LiveData<String?> get() = _transferError
+    private val _selectedAccount = MutableLiveData<String>()
+    val selectedAccount: LiveData<String> get() = _selectedAccount
 
-    fun makeTransfer(bank: String, transferFrom: String, accountNumber: String, amount: Double) {
-        viewModelScope.launch {
-            val result = transferRepository.makeTransfer(bank, transferFrom, accountNumber, amount)
-            if (result.isSuccess) {
-                _transferResult.value = true
-            } else {
-                _transferResult.value = false
-                _transferError.value = result.exceptionOrNull()?.message ?: "Transfer failed"
-            }
-        }
+    private val _accountNumber = MutableLiveData<String>()
+    val accountNumber: LiveData<String> get() = _accountNumber
+
+    private val _amount = MutableLiveData<Double>()
+    val amount: LiveData<Double> get() = _amount
+
+    fun setSelectedBank(bank: String) {
+        _selectedBank.value = bank
     }
 
-    fun resetError() {
-        _transferError.value = null
+    fun setSelectedAccount(account: String) {
+        _selectedAccount.value = account
+    }
+
+    fun setAccountNumber(accountNumber: String) {
+        _accountNumber.value = accountNumber
+    }
+
+    fun setAmount(amount: Double) {
+        _amount.value = amount
     }
 }

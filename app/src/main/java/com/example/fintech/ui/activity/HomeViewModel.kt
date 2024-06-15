@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 
-
 class HomeViewModel : ViewModel() {
     private val _balance = MutableLiveData<Double>(50000.0) // Initial balance
     val balance: LiveData<Double> get() = _balance
@@ -21,5 +20,6 @@ class HomeViewModel : ViewModel() {
     fun updateBalance(amount: Double) {
         _balance.value = (_balance.value ?: 0.0) - amount
     }
+
 }
 

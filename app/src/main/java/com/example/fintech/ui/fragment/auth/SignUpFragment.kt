@@ -1,5 +1,6 @@
 package com.example.fintech.ui.fragment.auth
 
+import com.example.fintech.ui.activity.HomeActivity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,14 +12,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.fintech.R
-import com.example.fintech.data.repository.AuthRepository
 import com.example.fintech.databinding.FragmentSignUpBinding
-import com.example.fintech.ui.activity.HomeActivity
 import com.example.fintech.ui.fragment.auth.viewModel.SignUpViewModel
-import com.google.firebase.auth.FirebaseAuth
 
 class SignUpFragment : Fragment() {
 
@@ -27,18 +23,7 @@ class SignUpFragment : Fragment() {
 
     lateinit var progressDialog: AlertDialog
 
-    // Initialize the UserRepository and SignUpViewModel
-    private val userRepository = AuthRepository(FirebaseAuth.getInstance())
-    private val signUpViewModel: SignUpViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                if (modelClass.isAssignableFrom(SignUpViewModel::class.java)) {
-                    return SignUpViewModel(userRepository) as T
-                }
-                throw IllegalArgumentException("Unknown ViewModel class")
-            }
-        }
-    }
+    private val signUpViewModel: SignUpViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,11 +43,10 @@ class SignUpFragment : Fragment() {
 
         binding.signUpButton.setOnClickListener {
             progressDialog.show()
-            signUpViewModel.signUpUser()
+              signUpViewModel.signUpUser()
         }
-
         signUpViewModel.signUpResult.observe(viewLifecycleOwner, Observer { isSuccess ->
-            progressDialog.dismiss()
+            progressDialog?.dismiss()
             if (isSuccess) {
                 Toast.makeText(context, "Sign-up successful", Toast.LENGTH_SHORT).show()
                 val userName = signUpViewModel.name.value ?: ""
@@ -74,7 +58,7 @@ class SignUpFragment : Fragment() {
         })
 
         signUpViewModel.signUpError.observe(viewLifecycleOwner, Observer { errorMessage ->
-            progressDialog.dismiss()
+            progressDialog?.dismiss()
             errorMessage?.let {
                 Toast.makeText(context, "Sign-up failed: $it", Toast.LENGTH_SHORT).show()
                 signUpViewModel.resetError()
@@ -89,6 +73,7 @@ class SignUpFragment : Fragment() {
                 .commit()
         }
 
+
         binding.loginCloseButton.setOnClickListener {
             requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
@@ -100,10 +85,14 @@ class SignUpFragment : Fragment() {
 
     private fun initializeProgressDialog() {
         val builder = requireContext().let { AlertDialog.Builder(it,R.style.WrapContentDialog) }
-        val customView: View = layoutInflater.inflate(R.layout.progress_bar, null)
+
+        val customView: View = layoutInflater.inflate(R.layout.progress_bar,null)
+
         builder.setView(customView)
+
         builder.setCancelable(false)
-        progressDialog = builder.create()
+
+        progressDialog  = builder.create()
     }
 
     override fun onDestroyView() {

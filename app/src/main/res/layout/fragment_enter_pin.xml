@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragment.others.EnterPinFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/rootLayout"
+            android:layout_height="wrap_content">
+
+
+            <ImageButton
+                android:id="@+id/backBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:padding="16dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/back" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/verifyTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Enter Pin"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/wellness_blue"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="@string/pin_text"
+                    android:id="@+id/pinTextView"
+                    android:textColor="@color/grey"
+                    android:textSize="16sp"
+                    android:layout_marginTop="4dp"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:id="@+id/codeEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/grey"
+                    android:maxLength="6"
+                    android:ems="10"
+                    android:hint="_ _ _ _ _ _"
+                    android:inputType="number"/>
+
+
+
+                <Button
+                    android:layout_width="match_parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_input_layout_outlined"
+                    android:padding="@dimen/button_padding"
+                    android:text="@string/proceed"
+                    android:layout_marginTop="35dp"
+                    android:id="@+id/buttonProceed"
+                    android:backgroundTint="@color/wellness_blue"
+                    android:layout_height="wrap_content"/>
+
+
+
+
+
+
+
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

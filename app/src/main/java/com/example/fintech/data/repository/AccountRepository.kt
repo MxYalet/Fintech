@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import com.example.fintech.data.repository.local.Account
 import com.example.fintech.data.repository.local.AccountDao
 
-// AccountRepository.kt
 class AccountRepository(private val accountDao: AccountDao) {
     val allAccounts: LiveData<List<android.accounts.Account>> = accountDao.getAllAccounts()
 
@@ -17,5 +16,4 @@ class AccountRepository(private val accountDao: AccountDao) {
     }
 }
 
-// TransactionRepository.kt
 

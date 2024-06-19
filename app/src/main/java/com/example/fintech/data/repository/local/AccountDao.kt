@@ -8,7 +8,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 
-// AccountDao.kt
 @Dao
 interface AccountDao {
     @Query("SELECT * FROM accounts")
@@ -21,5 +20,4 @@ interface AccountDao {
     suspend fun updateAccount(account: com.example.fintech.data.repository.local.Account)
 }
 
-// TransactionDao.kt
 
